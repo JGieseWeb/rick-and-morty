@@ -1,14 +1,10 @@
 import { createCharacterElement } from "./components/character";
 import "./style.css";
-import { createElement } from "./lib/elements";
+import { createElement, removeChildren } from "./lib/elements";
 import { getCharacters } from "./lib/api";
 
 const characterSection = createElement("section", {
   className: "resultsSection",
-});
-
-getCharacters().then((characters) => {
-  characterSection.append(...characters.map(createCharacterElement));
 });
 
 const header = createElement("header", {
@@ -18,10 +14,18 @@ const header = createElement("header", {
       className: "header_title",
       innerText: "Rick & Morty",
     }),
+
     createElement("input", {
       className: "input",
-      placeholder: "Search charackter",
+      placeholder: "Search character",
       autofocus: true,
+      oninput: (event) => {
+        removeChildren(characterSection);
+        const search = event.target.value;
+        getCharacters(search).then((characters) => {
+          characterSection.append(...characters.map(createCharacterElement));
+        });
+      },
     }),
   ],
 });
