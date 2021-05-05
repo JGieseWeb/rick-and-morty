@@ -1,27 +1,15 @@
 import { createCharacterElement } from "./components/character";
 import "./style.css";
 import { createElement } from "./lib/elements";
+import { getCharacters } from "./lib/api";
 
-const characters = [
-  {
-    imgSrc: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-    name: "Rick Sanchez",
-    status: "Alive",
-    species: "Human",
-    origin: {
-      name: "Earth",
-    },
-  },
-  {
-    imgSrc: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-    name: "Morty Smith",
-    status: "Alive",
-    species: "Human",
-    origin: {
-      name: "Earth",
-    },
-  },
-];
+const characterSection = createElement("section", {
+  className: "resultsSection",
+});
+
+getCharacters().then((characters) => {
+  characterSection.append(...characters.map(createCharacterElement));
+});
 
 const header = createElement("header", {
   className: "header",
@@ -38,10 +26,6 @@ const header = createElement("header", {
   ],
 });
 
-const section = createElement("section", {
-  className: "results",
-  children: characters.map(createCharacterElement),
-});
 const footer = createElement("footer", {
   className: "footer",
   children: [
@@ -49,4 +33,4 @@ const footer = createElement("footer", {
     createElement("span", { innerText: "my footer" }),
   ],
 });
-document.querySelector("#app").append(header, section, footer);
+document.querySelector("#app").append(header, characterSection, footer);
