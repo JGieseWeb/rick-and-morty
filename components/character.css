@@ -1,4 +1,4 @@
 .character-card {
   background-color: darkgray;
-  align-content: center;
+  display: grid;
 }
