@@ -4,10 +4,6 @@ import { createElement, removeChildren } from "./lib/elements";
 import { getCharacters } from "./lib/api";
 import { debounce } from "./lib/timer";
 
-const characterSection = createElement("section", {
-  className: "resultsSection",
-});
-
 const header = createElement("header", {
   className: "header",
   children: [
@@ -29,6 +25,9 @@ const header = createElement("header", {
       }, 300),
     }),
   ],
+});
+const characterSection = createElement("section", {
+  className: "resultsSection",
 });
 
 const footer = createElement("footer", {
