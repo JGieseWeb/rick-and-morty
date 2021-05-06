@@ -26,7 +26,7 @@ const header = createElement("header", {
         getCharacters(search).then((characters) => {
           characterSection.append(...characters.map(createCharacterElement));
         });
-      }),
+      }, 300),
     }),
   ],
 });
