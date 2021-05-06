@@ -2,6 +2,7 @@ import { createCharacterElement } from "./components/character";
 import "./style.css";
 import { createElement, removeChildren } from "./lib/elements";
 import { getCharacters } from "./lib/api";
+import { debounce } from "./lib/timer";
 
 const characterSection = createElement("section", {
   className: "resultsSection",
@@ -19,13 +20,13 @@ const header = createElement("header", {
       className: "input",
       placeholder: "Search character",
       autofocus: true,
-      oninput: (event) => {
+      oninput: debounce((event) => {
         removeChildren(characterSection);
         const search = event.target.value;
         getCharacters(search).then((characters) => {
           characterSection.append(...characters.map(createCharacterElement));
         });
-      },
+      }, 300),
     }),
   ],
 });
